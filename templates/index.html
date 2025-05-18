@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--  Для мобильных устройств -->
+    <title>Тригонометрический калькулятор</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 22px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        select, .inputarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #f0f0f0;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Тригонометрический калькулятор</h1>
+
+    <form method="POST">
+        <div class="form-group">
+            <label for="function">Функция:</label>
+            <select id="function" name="function" required>
+                <option value="sin" {% if function == 'sin' %}selected{% endif %}>sin(x)</option>
+                <option value="cos" {% if function == 'cos' %}selected{% endif %}>cos(x)</option>
+                <option value="tan" {% if function == 'tan' %}selected{% endif %}>tan(x)</option>
+                <option value="cot" {% if function == 'cot' %}selected{% endif %}>cot(x)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="angle">Значение угла:</label>
+            <input class="inputarea" type="number" id="angle" name="angle" step="any" value="{{ angle }}" required>
+        </div>
+
+        <div class="form-group">
+            <label>Единицы измерения:</label>
+            <div>
+                <input type="radio" id="degrees" name="unit" value="degrees"
+                       {% if unit == 'degrees' %}checked{% endif %}>
+                <label for="degrees" style="display: inline;">Градусы</label>
+
+                <input type="radio" id="radians" name="unit" value="radians"
+                       {% if unit == 'radians' %}checked{% endif %}>
+                <label for="radians" style="display: inline;">Радианы</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="precision">Точность (количество знаков после запятой):</label>
+            <input class="inputarea"  type="number" id="precision" name="precision" min="0" max="10"
+                   value="{{ precision }}" required>
+        </div>
+
+        <button type="submit">Вычислить</button>
+    </form>
+
+    {% if result is not none %}
+    <div class="result">
+        <h2>Результат:</h2>
+        <p>{{ result }}</p>
+    </div>
+    {% endif %}
+</body>
+</html>
