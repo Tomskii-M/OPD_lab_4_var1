@@ -10,7 +10,7 @@ def calculate_trig_function(function, angle, unit, precision):
     """
 
     valid_functions = ['sin', 'cos', 'tan', 'cot']
-    if not isinstance(unit, str) or function not in valid_functions:
+    if not isinstance(function, str) or function not in valid_functions:
         raise ValueError(f"Недопустимая функция")
 
     valid_units = ['degrees', 'radians']
