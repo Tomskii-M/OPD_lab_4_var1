@@ -14,7 +14,7 @@ def calculate_trig_function(function, angle, unit, precision):
         raise ValueError(f"Недопустимая функция")
 
     valid_units = ['degrees', 'radians']
-    if not isinstance(unit, str) or (unit not in valid_units):
+    if not isinstance(unit, str) or unit not in valid_units:
         raise ValueError(f"Недопустимая единица измерения: {unit}. Используйте degrees или radians")
 
     if isinstance(angle, bool):
@@ -45,7 +45,7 @@ def calculate_trig_function(function, angle, unit, precision):
             else:
                 value = math.tan(angle_rad)
         elif function == 'cot':
-            if math.degrees(angle_rad) % 360 in [0.0, 180.0, 360.0]:
+            if math.degrees(angle_rad) % 360 in [0.0, 180.0]:
                 value = "inf"
             else:
                 value = 1/math.tan(angle_rad)
