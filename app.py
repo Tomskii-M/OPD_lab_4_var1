@@ -48,7 +48,7 @@ def calculate_trig_function(function, angle, unit, precision):
             if math.degrees(angle_rad) % 360 in [0.0, 180.0]:
                 value = "inf"
             else:
-                value = 1/math.tan(angle_rad)
+                value = 1 / math.tan(angle_rad)
 
         # Округляем если возможно
         try:
@@ -60,8 +60,21 @@ def calculate_trig_function(function, angle, unit, precision):
         raise ValueError(f"Ошибка вычисления: {str(e)}")
 
 
-@app.route('/', methods=['post', 'get'])
+@app.route('/')
+@app.route('/index')
 def index():
+    return render_template(
+        'index.html',
+        function='sin',
+        angle='',
+        unit='degrees',
+        precision=2,
+        result=None
+    )
+
+
+@app.route('/', methods=['post', 'get'])
+def form():
     if request.method == 'POST':
         # Получаем данные из формы
         try:
@@ -83,27 +96,18 @@ def index():
         except Exception as e:
             return render_template(
                 'index.html',
-                function = 'sin',
-                angle = '',
-                unit = 'degrees',
-                precision= 2,
+                function='sin',
+                angle='',
+                unit='degrees',
+                precision=2,
                 result=f"Ошибка: {str(e)}"
             )
-
-    # GET-запрос
-    return render_template(
-        'index.html',
-        function='sin',
-        angle='',
-        unit='degrees',
-        precision=2,
-        result=None
-    )
 
 
 @app.errorhandler(404)
 def page_not_found(e):
     return f"ERROR: {e}", 404
+
 
 if __name__ == '__main__':
     app.run(debug=True)
