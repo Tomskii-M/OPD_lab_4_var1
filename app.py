@@ -62,16 +62,7 @@ def calculate_trig_function(function, angle, unit, precision):
 
 @app.route('/', methods=['post', 'get'])
 def index():
-    if request.method == 'GET':
-        return render_template(
-            'index.html',
-            function= 'sin',
-            angle= '',
-            unit= 'degrees',
-            precision= 2,
-            result= None)
-
-    elif request.method == 'POST':
+    if request.method == 'POST':
         # Получаем данные из формы
         try:
             function = request.form.get('function')
@@ -98,6 +89,17 @@ def index():
                 precision= 2,
                 result=f"Ошибка: {str(e)}"
             )
+
+    # GET-запрос
+    return render_template(
+        'index.html',
+        function='sin',
+        angle='',
+        unit='degrees',
+        precision=2,
+        result=None
+    )
+
 
 @app.errorhandler(404)
 def page_not_found(e):
